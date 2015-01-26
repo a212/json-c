@@ -355,10 +355,13 @@ struct json_object* json_tokener_parse_ex(struct json_tokener *tok,
       {
 	int size_inf;
 	int is_negative = 0;
+	char *s;
+	char *infbuf;
 
 	printbuf_memappend_fast(tok->pb, &c, 1);
 	size_inf = json_min(tok->st_pos+1, json_inf_str_len);
-	char *infbuf = tok->pb->buf;
+
+	infbuf = tok->pb->buf;
 	if (*infbuf == '-')
 	{
 		infbuf++;
@@ -369,6 +372,7 @@ struct json_object* json_tokener_parse_ex(struct json_tokener *tok,
 	         (strncmp(json_inf_str, infbuf, size_inf) == 0)
 	        )
 	{
+#if 0
 		if (tok->st_pos == json_inf_str_len)
 		{
 			current = json_object_new_double(is_negative ? -INFINITY : INFINITY); 
@@ -376,6 +380,7 @@ struct json_object* json_tokener_parse_ex(struct json_tokener *tok,
 			state = json_tokener_state_eatws;
 			goto redo_char;
 		}
+#endif
 	} else {
 		tok->err = json_tokener_error_parse_unexpected;
 		goto out;
@@ -406,6 +411,7 @@ struct json_object* json_tokener_parse_ex(struct json_tokener *tok,
 	         (strncmp(json_nan_str, tok->pb->buf, size_nan) == 0)
 	        )
 	{
+#if 0
 		if (tok->st_pos == json_nan_str_len)
 		{
 			current = json_object_new_double(NAN);
@@ -413,6 +419,7 @@ struct json_object* json_tokener_parse_ex(struct json_tokener *tok,
 			state = json_tokener_state_eatws;
 			goto redo_char;
 		}
+#endif
 	} else {
 	  tok->err = json_tokener_error_parse_null;
 	  goto out;

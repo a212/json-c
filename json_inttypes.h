@@ -8,6 +8,11 @@
 
 /* Anything less than Visual Studio C++ 10 is missing stdint.h and inttypes.h */
 typedef __int32 int32_t;
+typedef unsigned __int32 uint32_t;
+typedef __int16 int16_t;
+typedef unsigned __int16 uint16_t;
+typedef __int8 int8_t;
+typedef unsigned __int8 uint8_t;
 #define INT32_MIN    ((int32_t)_I32_MIN)
 #define INT32_MAX    ((int32_t)_I32_MAX)
 typedef __int64 int64_t;

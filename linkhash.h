@@ -18,7 +18,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 /**
  * golden prime used in hash functions
  */

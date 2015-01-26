@@ -596,6 +596,7 @@ static int json_object_double_to_json_string(struct json_object* jso,
 {
   char buf[128], *p, *q;
   int size;
+#if 0
   /* Although JSON RFC does not support
      NaN or Infinity as numeric values
      ECMA 262 section 9.8.1 defines
@@ -608,6 +609,7 @@ static int json_object_double_to_json_string(struct json_object* jso,
     else
       size = snprintf(buf, sizeof(buf), "-Infinity");
   else
+#endif
     size = snprintf(buf, sizeof(buf), "%.17g", jso->o.c_double);
 
   p = strchr(buf, ',');
@@ -643,10 +645,12 @@ struct json_object* json_object_new_double(double d)
 struct json_object* json_object_new_double_s(double d, const char *ds)
 {
 	struct json_object *jso = json_object_new_double(d);
+	char *new_ds;
+
 	if (!jso)
 		return NULL;
 
-	char *new_ds = strdup(ds);
+	new_ds = strdup(ds);
 	if (!new_ds)
 	{
 		json_object_generic_delete(jso);
